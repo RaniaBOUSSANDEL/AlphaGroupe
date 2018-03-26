@@ -64,9 +64,9 @@ public class UserServiceImpl implements UserService{
 //		users.set(index, user);
 		User u = dao.findById((int) user.getId());
 		if(u!=null){
-			u.setAddress(user.getAddress());
+			u.setAdresse(user.getAdresse());
 			u.setEmail(user.getEmail());
-			u.setUsername(user.getUsername());
+			u.setLogin(user.getLogin());
 		}
 		dao.save(u);
 	}
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public boolean isUserExist(User user) {
-		return findByName(user.getUsername())!=null;
+		return findByName(user.getLogin())!=null;
 	}
 	
 	public void deleteAllUsers(){

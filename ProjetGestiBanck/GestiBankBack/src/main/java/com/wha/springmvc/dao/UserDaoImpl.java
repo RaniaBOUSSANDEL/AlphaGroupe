@@ -26,7 +26,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		try {
 			User user = (User) getEntityManager()
 					.createQuery(
-							"SELECT u FROM User u where u.username LIKE :name")
+							"SELECT u FROM User u where u.nom LIKE :name")
 					.setParameter("name", name).getSingleResult();
 			return user;
 		} catch (NoResultException ex) {
@@ -50,7 +50,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAllUsers() {
-		List<User> users = (List<User>) getEntityManager().createQuery("SELECT u FROM User u ORDER BY u.username ASC ").getResultList();
+		List<User> users = (List<User>) getEntityManager().createQuery("SELECT u FROM User u ORDER BY u.nom ASC ").getResultList();
 		return users;
 	}
 
