@@ -1,36 +1,49 @@
 package com.wha.springmvc.model;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-
-
 @Entity
-@Table(name="user")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="typeUtilisateur")
+@DiscriminatorValue("U")
+@Table(name = "user")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-	private String username;
-	
-	private String address;
-	
+
+	private String nom;
+	private String prenom;
+	private String adresse;
 	private String email;
-	
-	public User(){
-		id=0;
+	private String numTel;
+	private String login;
+	private String motDePasse;
+
+	public User() {
+		id = 0;
 	}
-	
-	public User(int id, String username, String address, String email){
+
+	public User(int id, String nom, String prenom, String adresse, String email, String numTel, String login,
+			String motDePasse) {
+		super();
 		this.id = id;
-		this.username = username;
-		this.address = address;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresse = adresse;
 		this.email = email;
+		this.numTel = numTel;
+		this.login = login;
+		this.motDePasse = motDePasse;
 	}
 
 	public int getId() {
@@ -41,20 +54,14 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	
+
+	public String getAdresse() {
+		return adresse;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
 	}
 
 	public String getEmail() {
@@ -65,6 +72,48 @@ public class User {
 		this.email = email;
 	}
 
+	
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getNumTel() {
+		return numTel;
+	}
+
+	public void setNumTel(String numTel) {
+		this.numTel = numTel;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -89,10 +138,11 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", nom=" + username + ", adresse=" + address
-				+ ", email=" + email + "]";
+		return "User [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", email=" + email
+				+ ", numTel=" + numTel + ", login=" + login + ", motDePasse=" + motDePasse + "]";
 	}
-	
 
 	
+	
+
 }
