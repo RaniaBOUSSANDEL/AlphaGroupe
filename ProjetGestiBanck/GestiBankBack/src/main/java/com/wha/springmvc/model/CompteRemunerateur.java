@@ -2,9 +2,11 @@ package com.wha.springmvc.model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("CR")
+@Table(name="Compte Remunerateur")
 public class CompteRemunerateur extends CompteBancaire  {
 	private double tauxRemunerateur;
 	private int seuilMinimum; // montant fixé par le conseiller

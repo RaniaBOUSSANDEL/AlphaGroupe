@@ -7,10 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("CB")
-
+@Table(name="Compte Bancaire")
 public class CompteBancaire {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

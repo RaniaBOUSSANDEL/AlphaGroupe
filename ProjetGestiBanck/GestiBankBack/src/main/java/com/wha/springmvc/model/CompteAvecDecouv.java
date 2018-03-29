@@ -2,9 +2,11 @@ package com.wha.springmvc.model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("CD")
+@Table(name="Compte avec Decouvert")
 public class CompteAvecDecouv extends CompteBancaire  {
 	private int montantDecouvert; // montant inferieur à 0.4 des operations de credit
 	private int dureeDecouvert;
