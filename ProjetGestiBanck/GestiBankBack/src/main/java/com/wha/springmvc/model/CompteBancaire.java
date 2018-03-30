@@ -2,19 +2,24 @@ package com.wha.springmvc.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="typeCompte")
 @DiscriminatorValue("CB")
-@Table(name="Compte Bancaire")
+@Table(name="CompteBancaire")
 public class CompteBancaire {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)	
 	private int id;
 	private long numCompte;
 	private Date dateCreation;

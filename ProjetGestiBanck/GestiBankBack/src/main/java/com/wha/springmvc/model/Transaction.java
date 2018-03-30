@@ -2,6 +2,7 @@ package com.wha.springmvc.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@DiscriminatorColumn(name="typeTransaction")
 @DiscriminatorValue("T")
 @Table(name = "Transaction")
 public class Transaction {
