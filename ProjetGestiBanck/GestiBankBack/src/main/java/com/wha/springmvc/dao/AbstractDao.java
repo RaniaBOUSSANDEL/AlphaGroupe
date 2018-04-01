@@ -30,6 +30,7 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 	public void persist(T entity){
 		entityManager.persist(entity);
 	}
+	
 	public void update(T entity){
 		entityManager.merge(entity);
 	}

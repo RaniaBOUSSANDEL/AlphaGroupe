@@ -3,13 +3,17 @@ package com.wha.springmvc.dao;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.NoResultException;
+
+import org.springframework.stereotype.Repository;
+
 import com.wha.springmvc.model.Visiteur;
 
+@Repository("visiteurDao")
 public class VisiteurDaoImpl extends AbstractDao<Integer, Visiteur> implements VisiteurDao {
 
 	@Override
 	public Visiteur findById(int id) {
-		Visiteur visiteur=getByKey(id);
+		Visiteur visiteur = getByKey(id);
 		return visiteur;
 	}
 
@@ -18,9 +22,8 @@ public class VisiteurDaoImpl extends AbstractDao<Integer, Visiteur> implements V
 		System.out.println("name=" + name);
 		try {
 			Visiteur visiteur = (Visiteur) getEntityManager()
-					.createQuery(
-							"SELECT v FROM Visiteur v where v.nom LIKE :name")
-					.setParameter("name", name).getSingleResult();
+					.createQuery("SELECT v FROM Visiteur v where v.nom LIKE :name").setParameter("name", name)
+					.getSingleResult();
 			return visiteur;
 		} catch (NoResultException ex) {
 			return null;
@@ -39,12 +42,14 @@ public class VisiteurDaoImpl extends AbstractDao<Integer, Visiteur> implements V
 		delete(visiteur);
 
 	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Visiteur> findAllVisiteurs() {
-		List<Visiteur> visiteurs = (List<Visiteur>) getEntityManager().createQuery("SELECT v FROM Visiteur v ORDER BY v.nom ASC ").getResultList();
+		List<Visiteur> visiteurs = (List<Visiteur>) getEntityManager()
+				.createQuery("SELECT v FROM Visiteur v ORDER BY v.nom ASC ").getResultList();
 		return visiteurs;
-		
+
 	}
 
 	@Override
@@ -52,20 +57,19 @@ public class VisiteurDaoImpl extends AbstractDao<Integer, Visiteur> implements V
 		// TODO Auto-generated method stub
 
 	}
-	
-	public void deleteBySSO(String sso){
-		Visiteur visiteur = (Visiteur) getEntityManager()
-				.createQuery(
-						"SELECT v FROM Visiteur v where v.ssoId LIKE :ssoId")
-				.setParameter("ssoId", sso).getSingleResult();
-		delete(visiteur);
-	}
-	
-	protected void initializeCollection(Collection<?> collection){
-		if(collection == null){
-			return;
-		}
-		collection.iterator().hasNext();
-	}
+
+//	public void deleteBySSO(String sso) {
+//		Visiteur visiteur = (Visiteur) getEntityManager()
+//				.createQuery("SELECT v FROM Visiteur v where v.ssoId LIKE :ssoId").setParameter("ssoId", sso)
+//				.getSingleResult();
+//		delete(visiteur);
+//	}
+//
+//	protected void initializeCollection(Collection<?> collection) {
+//		if (collection == null) {
+//			return;
+//		}
+//		collection.iterator().hasNext();
+//	}
 
 }

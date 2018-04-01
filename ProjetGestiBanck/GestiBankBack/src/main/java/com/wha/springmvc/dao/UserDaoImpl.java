@@ -4,11 +4,11 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-
-
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.User;
 
 @Repository("userDao")
@@ -60,19 +60,19 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	}
 	
-	public void deleteBySSO(String sso){
-		User user = (User) getEntityManager()
-				.createQuery(
-						"SELECT u FROM User u where u.ssoId LIKE :ssoId")
-				.setParameter("ssoId", sso).getSingleResult();
-		delete(user);
+	public User findByLoginMp(String login, String motDePasse) {
+		System.out.println("login=" + login + "motDePasse=" + motDePasse);
+		try {
+
+			Query q = getEntityManager()
+					.createQuery("SELECT u FROM user u where u.login LIKE :login AND u.motDePasse LIKE :motDePasse");
+			q.setParameter("login", login);
+			q.setParameter("motDePasse", motDePasse);
+			return (User) q.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
 	}
 	
-	protected void initializeCollection(Collection<?> collection){
-		if(collection == null){
-			return;
-		}
-		collection.iterator().hasNext();
-	}
 
 }

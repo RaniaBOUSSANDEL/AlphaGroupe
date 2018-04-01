@@ -2,8 +2,13 @@ package com.wha.springmvc.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +20,19 @@ public class DemandeOuvertureCompte extends Demande {
 	/*int idClient;*/
 	private String etatAffectation;
 	private Date dateAffectation;
+	
+	//ok
+	@ManyToOne
+	@JoinColumn(name = "administrateur_id")// le nom de la colonne cree dans la base de donnee
+	private Administrateur administrateur;
+	
+
+	//ok
+	@ManyToOne
+	//@JoinColumn(name = "conseiller_id")// le nom de la colonne cree dans la base de donnee
+	private Conseiller conseiller;
+	
+	
 	public DemandeOuvertureCompte() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -23,6 +41,19 @@ public class DemandeOuvertureCompte extends Demande {
 		super(idDemande, dateDemande, etatDemande);
 		this.etatAffectation = etatAffectation;
 		this.dateAffectation = dateAffectation;
+	}
+	
+	public Administrateur getAdministrateur() {
+		return administrateur;
+	}
+	public void setAdministrateur(Administrateur administrateur) {
+		this.administrateur = administrateur;
+	}
+	public Conseiller getConseiller() {
+		return conseiller;
+	}
+	public void setConseiller(Conseiller conseiller) {
+		this.conseiller = conseiller;
 	}
 	public String getEtatAffectation() {
 		return etatAffectation;

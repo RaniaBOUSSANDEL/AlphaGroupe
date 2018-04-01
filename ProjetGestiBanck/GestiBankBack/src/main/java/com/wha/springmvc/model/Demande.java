@@ -38,6 +38,7 @@ public class Demande {
 		this.dateDemande = dateDemande;
 		this.etatDemande = etatDemande;
 	}
+	
 
 	public int getIdDemande() {
 		return idDemande;

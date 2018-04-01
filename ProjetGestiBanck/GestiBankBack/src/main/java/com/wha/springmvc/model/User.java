@@ -30,13 +30,12 @@ public class User {
 	private String motDePasse;
 
 	public User() {
-		id = 0;
+		//id = 0;
 	}
 
-	public User(int id, String nom, String prenom, String adresse, String email, String numTel, String login,
+	public User(String nom, String prenom, String adresse, String email, String numTel, String login,
 			String motDePasse) {
 		super();
-		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.adresse = adresse;
