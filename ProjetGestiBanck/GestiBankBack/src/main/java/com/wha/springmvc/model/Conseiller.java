@@ -1,8 +1,8 @@
 package com.wha.springmvc.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -13,35 +13,47 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @DiscriminatorValue("CO")
 @Table(name = "conseiller")
-public class Conseiller extends User {
+public class Conseiller extends User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6577359248268916137L;
 
 	
 	private int matricule;
+
+	
 	private Date dateDebutContrat;
-	
-	//ok
-	@OneToMany(mappedBy = "conseiller", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<Client> clients = new ArrayList<Client>();
-	
-	//ok
+
+	// ok
 	@ManyToOne
-	@JoinColumn(name = "administrateur_id")// le nom de la colonne cree dans la base de donnee
+	@JoinColumn(name = "administrateur_id") // le nom de la colonne cree dans la base de donnee
 	private Administrateur administrateur;
-	
-	//ok
-	@OneToMany(mappedBy = "conseiller", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<DemandeChequier> demandesChequier;
-	
-	//ok
-	@OneToMany(mappedBy = "conseiller", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<DemandeOuvertureCompte> demandesOuvertureCompte;
+
+	// ok
+	@JsonIgnore
+	@OneToMany(mappedBy = "conseiller", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	private Collection<Client> clients;
+
+	// ok
+	@JsonIgnore
+	@OneToMany(mappedBy = "conseiller", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	private Collection<DemandeChequier> demandesChequier;
+
+	// ok
+	@JsonIgnore
+	@OneToMany(mappedBy = "conseiller", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	private Collection<DemandeOuvertureCompte> demandesOuvertureCompte;
 
 	public Conseiller() {
 		super();
-		
+
 	}
 
 	public Conseiller(String nom, String prenom, String adresse, String email, String numTel, String login,
@@ -49,10 +61,8 @@ public class Conseiller extends User {
 		super(nom, prenom, adresse, email, numTel, login, motDePasse);
 		this.matricule = matricule;
 		this.dateDebutContrat = dateDebutContrat;
-		
+
 	}
-	
-	
 
 	public Administrateur getAdministrateur() {
 		return administrateur;
@@ -62,19 +72,19 @@ public class Conseiller extends User {
 		this.administrateur = administrateur;
 	}
 
-	public List<DemandeChequier> getDemandesChequier() {
+	public Collection<DemandeChequier> getDemandesChequier() {
 		return demandesChequier;
 	}
 
-	public void setDemandesChequier(List<DemandeChequier> demandesChequier) {
+	public void setDemandesChequier(Collection<DemandeChequier> demandesChequier) {
 		this.demandesChequier = demandesChequier;
 	}
 
-	public List<DemandeOuvertureCompte> getDemandesOuvertureCompte() {
+	public Collection<DemandeOuvertureCompte> getDemandesOuvertureCompte() {
 		return demandesOuvertureCompte;
 	}
 
-	public void setDemandesOuvertureCompte(List<DemandeOuvertureCompte> demandesOuvertureCompte) {
+	public void setDemandesOuvertureCompte(Collection<DemandeOuvertureCompte> demandesOuvertureCompte) {
 		this.demandesOuvertureCompte = demandesOuvertureCompte;
 	}
 
@@ -93,33 +103,21 @@ public class Conseiller extends User {
 	public void setDateDebutContrat(Date dateDebutContrat) {
 		this.dateDebutContrat = dateDebutContrat;
 	}
-	
-	
-	public List<Client> getClients() {
+
+	public Collection<Client> getClients() {
 		return clients;
 	}
-	
-//	public List<DemandeChequier> getDemandesChequier() {
-//		return demandesChequier;
-//	}
 
-	
-	public void setClients(List<Client> cls) {
+	 
+	public void setClients(Collection<Client> cls) {
 		clients = cls;
 	}
 
-//	public List<DemandeOuvertureCompte> getDemandesOuvertureCompte() {
-//		return demandesOuvertureCompte;
-//	}
-//
-//	public void setDemandesOuvertureCompte(List<DemandeOuvertureCompte> demandesOuvertureCompte) {
-//		this.demandesOuvertureCompte = demandesOuvertureCompte;
-//	}
+	 
 
 	@Override
 	public String toString() {
 		return "Conseiller [matricule=" + matricule + ", dateDebutContrat=" + dateDebutContrat + "]";
 	}
 
-	
 }

@@ -1,21 +1,23 @@
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("DOC")
 @Table(name = "demandeOuvertureCompte")
-public class DemandeOuvertureCompte extends Demande {
+public class DemandeOuvertureCompte extends Demande implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -853669645625977250L;
 	/*l'id du client on la recupere automatiquement*/	
 	/*int idClient;*/
 	private String etatAffectation;
@@ -29,7 +31,7 @@ public class DemandeOuvertureCompte extends Demande {
 
 	//ok
 	@ManyToOne
-	//@JoinColumn(name = "conseiller_id")// le nom de la colonne cree dans la base de donnee
+	@JoinColumn(name = "conseiller_id")// le nom de la colonne cree dans la base de donnee
 	private Conseiller conseiller;
 	
 	

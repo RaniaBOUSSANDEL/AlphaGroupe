@@ -1,6 +1,7 @@
 package com.wha.springmvc.model;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -9,18 +10,27 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @DiscriminatorValue("AD")
 @Table(name = "administrateur")
-public class Administrateur extends User {
+public class Administrateur extends User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1208987113225446191L;
 
 	// ok
-	@OneToMany(mappedBy = "administrateur", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Conseiller> conseillers;
+	@JsonIgnore
+	@OneToMany(mappedBy = "administrateur", fetch = FetchType.LAZY, cascade= {CascadeType.ALL})
+	private Collection<Conseiller> conseillers;
 
 	//ok
-	@OneToMany(mappedBy = "administrateur", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<DemandeOuvertureCompte> demandesOuvertureCompte;
+	@JsonIgnore
+	@OneToMany(mappedBy = "administrateur", fetch = FetchType.LAZY, cascade= {CascadeType.ALL})
+	private Collection<DemandeOuvertureCompte> demandesOuvertureCompte;
 
 	public Administrateur() {
 		// TODO Auto-generated constructor stub
@@ -32,19 +42,19 @@ public class Administrateur extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<DemandeOuvertureCompte> getDemandesOuvertureCompte() {
+	public Collection<DemandeOuvertureCompte> getDemandesOuvertureCompte() {
 		return demandesOuvertureCompte;
 	}
 
-	public void setDemandesOuvertureCompte(List<DemandeOuvertureCompte> demandesOuvertureCompte) {
+	public void setDemandesOuvertureCompte(Collection<DemandeOuvertureCompte> demandesOuvertureCompte) {
 		this.demandesOuvertureCompte = demandesOuvertureCompte;
 	}
 
-	public void setConseillers(List<Conseiller> conseillers) {
+	public void setConseillers(Collection<Conseiller> conseillers) {
 		this.conseillers = conseillers;
 	}
 
-	public List<Conseiller> getConseillers() {
+	public Collection<Conseiller> getConseillers() {
 		return conseillers;
 	}
 	

@@ -1,5 +1,7 @@
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -10,27 +12,36 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="typeUtilisateur")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "typeUtilisateur")
 @DiscriminatorValue("U")
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private int id;
 
 	private String nom;
+
 	private String prenom;
+
 	private String adresse;
+
 	private String email;
+
 	private String numTel;
+
 	private String login;
+
 	private String motDePasse;
 
 	public User() {
-		//id = 0;
+		// id = 0;
 	}
 
 	public User(String nom, String prenom, String adresse, String email, String numTel, String login,
@@ -53,8 +64,6 @@ public class User {
 		this.id = id;
 	}
 
-	
-
 	public String getAdresse() {
 		return adresse;
 	}
@@ -70,8 +79,6 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
 
 	public String getNom() {
 		return nom;
@@ -112,7 +119,7 @@ public class User {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -140,8 +147,5 @@ public class User {
 		return "User [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", email=" + email
 				+ ", numTel=" + numTel + ", login=" + login + ", motDePasse=" + motDePasse + "]";
 	}
-
-	
-	
 
 }

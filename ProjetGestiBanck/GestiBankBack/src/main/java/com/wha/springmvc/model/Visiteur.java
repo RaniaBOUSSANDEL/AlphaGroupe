@@ -1,5 +1,7 @@
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,9 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "visiteur")
-public class Visiteur {
+public class Visiteur implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -26,7 +30,8 @@ public class Visiteur {
 	private String situationMaritale;
 	
 	//ok
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY , cascade = { CascadeType.ALL })
 	@JoinColumn(name="demandeOuvertureCompte_id")
 	private DemandeOuvertureCompte demandeOuvertureCompte ;
 	

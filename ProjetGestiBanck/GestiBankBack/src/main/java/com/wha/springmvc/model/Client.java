@@ -1,9 +1,8 @@
 package com.wha.springmvc.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,27 +11,40 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @DiscriminatorValue("CL")
 @Table(name = "client")
-public class Client extends User {
+public class Client extends User implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -617070553473600148L;
+
+	
 	private int nbEnfants;
+	
+	
 	private String situationMaritale;
 
 	// ok
 	@ManyToOne
 	@JoinColumn(name = "conseiller_id") // le nom de la colonne cree dans la base de donnee
-	private Conseiller conseiller = new Conseiller();
+	private Conseiller conseiller;
 
 	//ok
-	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<CompteBancaire> comptesBancaire = new ArrayList<CompteBancaire>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+	private Collection<CompteBancaire> comptesBancaire;
 	
 
 	//ok
-	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<DemandeChequier> demandesChequier = new ArrayList<DemandeChequier>() ;
+	@JsonIgnore
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+	private Collection<DemandeChequier> demandesChequier;
 
 	
 	public Conseiller getConseiller() {
@@ -43,19 +55,19 @@ public class Client extends User {
 		this.conseiller = conseiller;
 	}
 
-	public List<CompteBancaire> getComptesBancaire() {
+	public Collection<CompteBancaire> getComptesBancaire() {
 		return comptesBancaire;
 	}
 
-	public void setComptesBancaire(List<CompteBancaire> comptesBancaire) {
+	public void setComptesBancaire(Collection<CompteBancaire> comptesBancaire) {
 		this.comptesBancaire = comptesBancaire;
 	}
 
-	public List<DemandeChequier> getDemandesChequier() {
+	public Collection<DemandeChequier> getDemandesChequier() {
 		return demandesChequier;
 	}
 
-	public void setDemandesChequier(List<DemandeChequier> demandesChequier) {
+	public void setDemandesChequier(Collection<DemandeChequier> demandesChequier) {
 		this.demandesChequier = demandesChequier;
 	}
 
@@ -75,10 +87,6 @@ public class Client extends User {
 		this.situationMaritale = situationMaritale;
 	}
 
-	// @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	// public List<CompteBancaire> getComptesBancaire() {
-	// return comptesBancaire;
-	// }
 
 	public Client() {
 		super();
@@ -94,7 +102,7 @@ public class Client extends User {
 
 	@Override
 	public String toString() {
-		return "Client [nbEnfants=" + nbEnfants + ", situationMaritale=" + situationMaritale + "]";
+		return super.toString() + "Client [nbEnfants=" + nbEnfants + ", situationMaritale=" + situationMaritale + "]";
 	}
 
 	@Override

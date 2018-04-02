@@ -2,6 +2,7 @@ package com.wha.springmvc.model;
 
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.DiscriminatorValue;
@@ -13,11 +14,16 @@ import javax.persistence.Table;
 @Entity
 @DiscriminatorValue("DCh")
 @Table(name = "demandeChequier")
-public class DemandeChequier extends Demande {
+public class DemandeChequier extends Demande implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3748437513591594504L;
+
 	//ok
 	@ManyToOne
-	//@JoinColumn(name = "conseiller_id")// le nom de la colonne cree dans la base de donnee
+	@JoinColumn(name = "conseiller_id")// le nom de la colonne cree dans la base de donnee
 	private Conseiller conseiller;
 
 	//ok

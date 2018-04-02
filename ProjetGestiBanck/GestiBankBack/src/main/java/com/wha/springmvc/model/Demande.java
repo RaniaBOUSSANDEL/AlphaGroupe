@@ -1,5 +1,6 @@
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.DiscriminatorColumn;
@@ -18,8 +19,12 @@ import javax.persistence.Table;
 @DiscriminatorValue("D")
 @Table(name = "demande")
 
-public class Demande {
+public class Demande implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2364349026005563689L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idDemande;
