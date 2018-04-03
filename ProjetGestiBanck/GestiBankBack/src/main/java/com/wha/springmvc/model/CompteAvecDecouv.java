@@ -2,30 +2,43 @@ package com.wha.springmvc.model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+
 
 @Entity
 @DiscriminatorValue("CD")
-@Table(name="Compte avec Decouvert")
+
 public class CompteAvecDecouv extends CompteBancaire  {
 	private int montantDecouvert; // montant inferieur à 0.4 des operations de credit
 	private int dureeDecouvert;
 	private double tauxDebiteur;
-
+	private int cummul;
 	public CompteAvecDecouv() {
 		super();
 	}
 
 	
 
-	public CompteAvecDecouv(int montantDecouvert, int dureeDecouvert, double tauxDebiteur) {
+	public CompteAvecDecouv(int montantDecouvert, int dureeDecouvert, double tauxDebiteur, int cummul) {
 		
 		this.montantDecouvert = 0;
 		this.dureeDecouvert =  0;
 		this.tauxDebiteur = 0.18;
+		this.cummul = 0;
 	}
 
 	
+
+	public int getCummul() {
+		return cummul;
+	}
+
+
+
+	public void setCummul(int cummul) {
+		this.cummul = cummul;
+	}
+
+
 
 	public double getTauxDebiteur() {
 		return tauxDebiteur;
@@ -60,8 +73,8 @@ public class CompteAvecDecouv extends CompteBancaire  {
 	@Override
 	public String toString() {
 		return "CompteAvecDecouv [montantDecouvert=" + montantDecouvert + ", dureeDecouvert=" + dureeDecouvert
-				+ ", tauxDebiteur=" + tauxDebiteur + "]";
+				+ ", tauxDebiteur=" + tauxDebiteur + ", cummul=" + cummul + "]";
 	}
 
-	
+
 }

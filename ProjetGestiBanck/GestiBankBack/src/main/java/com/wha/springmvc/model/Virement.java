@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("V")
 @Table(name="Virement")
 public class Virement extends Transaction{
-	public long rib;
+	public long ribDest;
 
 	public Virement() {
 		
@@ -16,20 +16,22 @@ public class Virement extends Transaction{
 
 	public Virement(long rib) {
 		super();
-		this.rib = rib;
+		this.ribDest = rib;
 	}
 
-	public long getRib() {
-		return rib;
+	public long getRibDest() {
+		return ribDest;
 	}
 
-	public void setRib(long rib) {
-		this.rib = rib;
+	public void setRibDest(long ribDest) {
+		this.ribDest = ribDest;
 	}
 
 	@Override
 	public String toString() {
-		return "Virement [rib=" + rib + "]";
+		return "Virement [ribDest=" + ribDest + "]";
 	}
+
+	
 	
 }
