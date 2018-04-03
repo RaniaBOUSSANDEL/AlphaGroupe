@@ -1,4 +1,9 @@
+
+
+
 package com.wha.springmvc.model;
+
+import java.io.Serializable;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -7,7 +12,11 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("CR")
 
-public class CompteRemunerateur extends CompteBancaire  {
+public class CompteRemunerateur extends CompteBancaire implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4503469016582879890L;
 	private double tauxRemunerateur;
 	private int seuilMinimum; // montant fixé par le conseiller
 	private int dureeRemuneration;
@@ -64,3 +73,4 @@ public class CompteRemunerateur extends CompteBancaire  {
 	
 	
 }
+

@@ -8,6 +8,7 @@ public interface UserDao {
 	
 	User findById(int id);
 	User findByName(String name);
+	User findByLoginMp(String login, String motDePasse); 
 	void save(User user);
 	void deleteUserById(int id);
 	List<User> findAllUsers();
