@@ -21,8 +21,8 @@ public class CompteBancDAOImpl extends AbstractDao<Integer, CompteBancaire> impl
 		System.out.println("name=" + date);
 		try {
 			CompteBancaire compteBancaire = (CompteBancaire) getEntityManager()
-					.createQuery("SELECT c FROM CompteBanc c where c.dateCreation LIKE :date")
-					.setParameter("name", date).getSingleResult();
+					.createQuery("SELECT c FROM CompteBancaire c where c.dateCreation LIKE :date")
+					.setParameter("date", date).getSingleResult();
 			return compteBancaire;
 		} catch (NoResultException ex) {
 			return null;
@@ -35,8 +35,8 @@ public class CompteBancDAOImpl extends AbstractDao<Integer, CompteBancaire> impl
 		System.out.println("name=" + numeroCompte);
 		try {
 			CompteBancaire compteBancaire = (CompteBancaire) getEntityManager()
-					.createQuery("SELECT c FROM CompteBanc c where c.numCompte LIKE :numeroCompte")
-					.setParameter("name", numeroCompte).getSingleResult();
+					.createQuery("SELECT c FROM CompteBancaire c where c.numCompte LIKE :numeroCompte")
+					.setParameter("numeroCompte", numeroCompte).getSingleResult();
 			return compteBancaire;
 		} catch (NoResultException ex) {
 			return null;
@@ -45,6 +45,7 @@ public class CompteBancDAOImpl extends AbstractDao<Integer, CompteBancaire> impl
 
 	@Override
 	public void save(CompteBancaire compteBancaire) {
+		
 		persist(compteBancaire);
 
 	}

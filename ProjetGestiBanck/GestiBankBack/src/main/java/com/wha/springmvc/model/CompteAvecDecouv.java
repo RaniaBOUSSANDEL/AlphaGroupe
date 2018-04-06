@@ -1,5 +1,7 @@
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -7,7 +9,11 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("CD")
 
-public class CompteAvecDecouv extends CompteBancaire  {
+public class CompteAvecDecouv extends CompteBancaire implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int montantDecouvert; // montant inferieur à 0.4 des operations de credit
 	private int dureeDecouvert;
 	private double tauxDebiteur;
