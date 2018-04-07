@@ -42,7 +42,11 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	public Client findByName(String name) {
 		System.out.println("name=" + name);
 		try {
+<<<<<<< HEAD
 			Client client = (Client) getEntityManager().createQuery("SELECT c FROM Client c where c.nom LIKE :name")
+=======
+			Client client = (Client) getEntityManager().createQuery("SELECT c FROM client c where c.nom LIKE :name")
+>>>>>>> branch 'master' of https://github.com/RaniaBOUSSANDEL/AlphaGroupe.git
 					.setParameter("name", name).getSingleResult();
 			return client;
 		} catch (NoResultException ex) {

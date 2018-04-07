@@ -1,10 +1,15 @@
 package com.wha.springmvc.model;
 
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+=======
+import java.util.Date;
+import java.util.List;
+>>>>>>> branch 'master' of https://github.com/RaniaBOUSSANDEL/AlphaGroupe.git
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
