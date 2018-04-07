@@ -46,9 +46,8 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public Client updateClient(Client client) {
 
-		
 		Client cl = dao.findById(client.getId());
-		
+
 		if (cl != null) {
 			cl.setAdresse(client.getAdresse());
 			cl.setEmail(client.getEmail());
@@ -57,6 +56,21 @@ public class ClientServiceImpl implements ClientService {
 			cl.setNumTel(client.getNumTel());
 			cl.setPrenom(client.getPrenom());
 			cl.setSituationMaritale(client.getSituationMaritale());
+		}
+		dao.save(cl);
+
+		return cl;
+	}
+
+	// mise a jour login et mot de passe d'un client, utilisé par le conseiller
+	@Override
+	public Client updateLoginMpClient(Client client, String login, String motDePasse) {
+
+		Client cl = dao.findById(client.getId());
+
+		if (cl != null) {
+			cl.setLogin(login);
+			cl.setMotDePasse(motDePasse);
 		}
 		dao.save(cl);
 

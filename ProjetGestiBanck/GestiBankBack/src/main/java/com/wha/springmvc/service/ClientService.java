@@ -21,5 +21,7 @@ public interface ClientService {
 	void deleteAllClients();
 
 	Client updateConseillerForThisClient(Client client, int id_cons);
+
+	Client updateLoginMpClient(Client client, String login, String MotDePasse);
 	
 }

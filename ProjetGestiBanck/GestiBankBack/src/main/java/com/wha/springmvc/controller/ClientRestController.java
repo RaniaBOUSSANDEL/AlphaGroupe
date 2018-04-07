@@ -24,7 +24,8 @@ public class ClientRestController {
 	@Autowired
 	ClientService clientService; // Service which will do all data retrieval/manipulation work
 
-	// -------------------Retrieve All Clients-------------------------------------
+	// -------------------Retrieve All
+	// Clients-------------------------------------OK
 
 	@RequestMapping(value = "/clients/", method = RequestMethod.GET)
 	public ResponseEntity<List<Client>> listAllClients() {
@@ -39,10 +40,10 @@ public class ClientRestController {
 		return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
 	}
 
-	// -------------------Retrieve Single Client-------------------
+	// -------------------Retrieve Single Client by id-------------------OK
 
 	@RequestMapping(value = "/client/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Client> getClient(@PathVariable("id") int id) {
+	public ResponseEntity<Client> getClientById(@PathVariable("id") int id) {
 		System.out.println("Fetching Client with id " + id);
 		Client client = clientService.findById(id);
 		if (client == null) {
@@ -52,7 +53,20 @@ public class ClientRestController {
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
 
-	// -------------------Create a Client-------------------------------
+	// -------------------Retrieve Single Client by nom-------------------OK
+
+	@RequestMapping(value = "/client/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Client> getClientByName(@PathVariable("name") String nom) {
+		System.out.println("Fetching Client with name " + nom);
+		Client client = clientService.findByName(nom);
+		if (client == null) {
+			System.out.println("client with name " + nom + " not found");
+			return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Client>(client, HttpStatus.OK);
+	}
+
+	// -------------------Create a Client-------------------------------ok
 
 	@RequestMapping(value = "/client/{conseiller_id}", method = RequestMethod.POST)
 	public ResponseEntity<Void> createClient(@RequestBody Visiteur visiteur,
@@ -72,7 +86,7 @@ public class ClientRestController {
 
 	}
 
-	// ------------------- Update a Client --------------------------------------
+	// ------------------- Update a Client --------------------------------------ok
 
 	@RequestMapping(value = "/client/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Client> updateClient(@PathVariable("id") int id, @RequestBody Client client) {
@@ -88,8 +102,26 @@ public class ClientRestController {
 		return new ResponseEntity<Client>(currentClient, HttpStatus.OK);
 	}
 
+	// ------------------- Update login and pw for this Client
+	// --------------------------------------ok
+
+	@RequestMapping(value = "/client/login/{login}/motDePasse/{mp}", method = RequestMethod.PUT)
+	public ResponseEntity<Client> updateLoginMpClient(@PathVariable("login") String login,
+			@PathVariable("mp") String mp, @RequestBody Client client) {
+		System.out.println("Updating Client " + client.getId() + login + mp);
+
+		Client currentClient = clientService.updateLoginMpClient(client, login, mp);
+
+		if (currentClient == null) {
+			System.out.println("Client with id " + client.getId() + " not found");
+			return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Client>(currentClient, HttpStatus.OK);
+	}
+
 	// ------------------- affect Client for other
-	// Conseiller--------------------------------------
+	// Conseiller--------------------------------------ok
 
 	@RequestMapping(value = "/client/{id}/conseiller/{id_cons}", method = RequestMethod.PUT)
 	public ResponseEntity<Client> affectClientForNewConseiller(@PathVariable("id") int id,
@@ -106,7 +138,7 @@ public class ClientRestController {
 		return new ResponseEntity<Client>(currentClient, HttpStatus.OK);
 	}
 
-	// ------------------- Delete a Client --------------------------------------
+	// ------------------- Delete a Client --------------------------------------ok
 
 	@RequestMapping(value = "/client/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Client> deleteClient(@PathVariable("id") int id) {
