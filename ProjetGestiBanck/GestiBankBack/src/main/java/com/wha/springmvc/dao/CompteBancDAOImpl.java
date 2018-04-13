@@ -21,32 +21,6 @@ public class CompteBancDAOImpl extends AbstractDao<Integer, CompteBancaire> impl
 		System.out.println("name=" + date);
 		try {
 			CompteBancaire compteBancaire = (CompteBancaire) getEntityManager()
-<<<<<<< HEAD
-					.createQuery("SELECT c FROM CompteBanc c where c.dateCreation LIKE :date")
-					.setParameter("name", date).getSingleResult();
-			return compteBancaire;
-		} catch (NoResultException ex) {
-			return null;
-		}
-	}
-
-	// Recherche compte bancaire par numero de compte
-	@Override
-	public CompteBancaire findByNumeroCompte(long numeroCompte) {
-		System.out.println("name=" + numeroCompte);
-		try {
-			CompteBancaire compteBancaire = (CompteBancaire) getEntityManager()
-					.createQuery("SELECT c FROM CompteBanc c where c.numCompte LIKE :numeroCompte")
-					.setParameter("name", numeroCompte).getSingleResult();
-			return compteBancaire;
-		} catch (NoResultException ex) {
-			return null;
-		}
-	}
-
-	@Override
-	public void save(CompteBancaire compteBancaire) {
-=======
 					.createQuery("SELECT c FROM CompteBancaire c where c.dateCreation LIKE :date")
 					.setParameter("date", date).getSingleResult();
 			return compteBancaire;
@@ -72,7 +46,6 @@ public class CompteBancDAOImpl extends AbstractDao<Integer, CompteBancaire> impl
 	@Override
 	public void save(CompteBancaire compteBancaire) {
 		
->>>>>>> branch 'master' of https://github.com/RaniaBOUSSANDEL/AlphaGroupe.git
 		persist(compteBancaire);
 
 	}

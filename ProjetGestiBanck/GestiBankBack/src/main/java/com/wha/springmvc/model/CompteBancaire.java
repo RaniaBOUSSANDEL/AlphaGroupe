@@ -1,15 +1,8 @@
 package com.wha.springmvc.model;
 
 import java.io.Serializable;
-<<<<<<< HEAD
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-=======
-import java.util.Date;
-import java.util.List;
->>>>>>> branch 'master' of https://github.com/RaniaBOUSSANDEL/AlphaGroupe.git
+import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
@@ -25,13 +18,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "typeCompte")
 @DiscriminatorValue("CB")
 @Table(name = "CompteBancaire")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class CompteBancaire implements Serializable {
 	/**
 	 * 
@@ -45,14 +44,16 @@ public class CompteBancaire implements Serializable {
 	private int solde;
 	
 	//ok
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "client_id") // le nom de la colonne cree dans la base de donnee
 	private Client client;
 	
 	//ok
 	@JsonIgnore
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "compteB", fetch = FetchType.LAZY, cascade= {CascadeType.ALL})
-	private List<Transaction> transactions;
+	private Collection<Transaction> transactions;
 
 
 	public CompteBancaire() {
@@ -77,11 +78,11 @@ public class CompteBancaire implements Serializable {
 
 	
 
-	public List<Transaction> getTransactions() {
+	public Collection<Transaction> getTransactions() {
 		return transactions;
 	}
 
-	public void setTransactions(List<Transaction> transactions) {
+	public void setTransactions(Collection<Transaction> transactions) {
 		this.transactions = transactions;
 	}
 

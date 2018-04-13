@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @DiscriminatorColumn(name = "typeTransaction")
 @DiscriminatorValue("T")
@@ -31,6 +33,7 @@ public class Transaction implements Serializable {
 	private double solde;
 
 	// ok
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "compteB_id") // le nom de la colonne cree dans la base de donnee
 	private CompteBancaire compteB;

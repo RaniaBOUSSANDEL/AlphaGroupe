@@ -35,7 +35,7 @@ public class ConseillerDaoImpl extends AbstractDao<Integer, Conseiller> implemen
 		System.out.println("name=" + name);
 		try {
 			Conseiller conseiller = (Conseiller) getEntityManager()
-					.createQuery("SELECT c FROM conseiller c where c.nom LIKE :name").setParameter("name", name)
+					.createQuery("SELECT c FROM Conseiller c where c.nom LIKE :name").setParameter("name", name)
 					.getSingleResult();
 			return conseiller;
 		} catch (NoResultException ex) {
@@ -48,7 +48,7 @@ public class ConseillerDaoImpl extends AbstractDao<Integer, Conseiller> implemen
 		System.out.println("matricule=" + matricule);
 		try {
 			Conseiller conseiller = (Conseiller) getEntityManager()
-					.createQuery("SELECT c FROM conseiller c where c.matricule LIKE :matricule")
+					.createQuery("SELECT c FROM Conseiller c where c.matricule LIKE :matricule")
 					.setParameter("matricule", matricule).getSingleResult();
 			return conseiller;
 		} catch (NoResultException ex) {
@@ -60,7 +60,7 @@ public class ConseillerDaoImpl extends AbstractDao<Integer, Conseiller> implemen
 	@Override
 	public List<Conseiller> findAllConseillers() {
 		List<Conseiller> conseillers = (List<Conseiller>) getEntityManager()
-				.createQuery("SELECT c FROM conseiller c ORDER BY c.nom ASC ").getResultList();
+				.createQuery("SELECT c FROM Conseiller c ORDER BY c.nom ASC ").getResultList();
 
 		return conseillers;
 	}
@@ -68,7 +68,9 @@ public class ConseillerDaoImpl extends AbstractDao<Integer, Conseiller> implemen
 	@Override
 	public void deleteConseillerById(int id) {
 		Conseiller conseiller = getByKey(id);
+		System.out.println(conseiller);
 		delete(conseiller);
+		System.out.println("============================================================supprime "+ getByKey(id));
 	}
 
 	@Override

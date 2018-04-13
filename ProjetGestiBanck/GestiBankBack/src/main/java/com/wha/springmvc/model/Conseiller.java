@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -38,16 +41,19 @@ public class Conseiller extends User implements Serializable {
 
 	// ok
 	@JsonIgnore
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "conseiller", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Collection<Client> clients;
 
 	// ok
 	@JsonIgnore
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "conseiller", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Collection<DemandeChequier> demandesChequier;
 
 	// ok
 	@JsonIgnore
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "conseiller", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Collection<DemandeOuvertureCompte> demandesOuvertureCompte;
 

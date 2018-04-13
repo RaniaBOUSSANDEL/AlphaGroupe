@@ -1,5 +1,6 @@
 package com.wha.springmvc.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.CompteBancaire;
 import com.wha.springmvc.model.Visiteur;
 import com.wha.springmvc.service.ClientService;
 
@@ -28,21 +31,21 @@ public class ClientRestController {
 	// Clients-------------------------------------OK
 
 	@RequestMapping(value = "/clients/", method = RequestMethod.GET)
-	public ResponseEntity<List<Client>> listAllClients() {
-		List<Client> clients = clientService.findAllClients();
+	public ResponseEntity<Collection<Client>> listAllClients() {
+		Collection<Client> clients = clientService.findAllClients();
 		for (Client client : clients) {
 			System.out.println(client);
 		}
 		if (clients.isEmpty()) {
-			return new ResponseEntity<List<Client>>(HttpStatus.NO_CONTENT);// You many decide to return
+			return new ResponseEntity<Collection<Client>>(HttpStatus.NO_CONTENT);// You many decide to return
 																			// HttpStatus.NOT_FOUND
 		}
-		return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+		return new ResponseEntity<Collection<Client>>(clients, HttpStatus.OK);
 	}
 
 	// -------------------Retrieve Single Client by id-------------------OK
 
-	@RequestMapping(value = "/client/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/clients/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Client> getClientById(@PathVariable("id") int id) {
 		System.out.println("Fetching Client with id " + id);
 		Client client = clientService.findById(id);
@@ -65,6 +68,22 @@ public class ClientRestController {
 		}
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
+	
+	
+	// -------------------Retrieve liste compte-------------------OK
+
+	
+	@JsonIgnore	
+	@RequestMapping(value = "/client/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<Collection<CompteBancaire>> getListCompte(@PathVariable("id") int id) {
+			System.out.println("Fetching List comptes for Client with id " + id);
+			Collection<CompteBancaire>  comptes = clientService.findListComptesForThisClient(id);
+			if (comptes == null) {
+				System.out.println("client with id " + id + " not found");
+				return new ResponseEntity<Collection<CompteBancaire>>(HttpStatus.NOT_FOUND);
+			}
+			return new ResponseEntity<Collection<CompteBancaire>>(comptes, HttpStatus.OK);
+		}
 
 	// -------------------Create a Client-------------------------------ok
 
@@ -124,7 +143,7 @@ public class ClientRestController {
 	// Conseiller--------------------------------------ok
 
 	@RequestMapping(value = "/client/{id}/conseiller/{id_cons}", method = RequestMethod.PUT)
-	public ResponseEntity<Client> affectClientForNewConseiller(@PathVariable("id") int id,
+	public ResponseEntity<Client> updateConseillerForThisClient(@PathVariable("id") int id,
 			@PathVariable("id_cons") int id_cons, @RequestBody Client client) {
 		System.out.println("Updating conseiller for Client " + id);
 
@@ -153,5 +172,44 @@ public class ClientRestController {
 		clientService.deleteClientById(id);
 		return new ResponseEntity<Client>(HttpStatus.NO_CONTENT);
 	}
+	
+	// -------------------sent mail confirmation to this Client-------------------------------ok
 
+//		@RequestMapping(value = "/client/{conseiller_id}", method = RequestMethod.POST)
+//		public ResponseEntity<Void> sendMailConfirmation(@RequestBody Visiteur visiteur,
+//				@PathVariable("conseiller_id") int conseiller_id, UriComponentsBuilder ucBuilder) {
+//			System.out.println("Creating Client " + visiteur.getNom());
+//
+//			Client cl = clientService.createClient(visiteur, conseiller_id);
+//
+//			if (cl == null) {
+//				System.out.println("A Client with name " + visiteur.getNom() + " already exist");
+//				return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+//			} else {
+//				HttpHeaders headers = new HttpHeaders();
+//				headers.setLocation(ucBuilder.path("/client/{id}").buildAndExpand(cl.getId()).toUri());
+//				return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+//			}
+//
+//		}
+	
+		// -------------------sent mail info to this Visiteur-------------------------------ok
+
+//				@RequestMapping(value = "/client/{conseiller_id}", method = RequestMethod.POST)
+//				public ResponseEntity<Void> sendMailConfirmation(@RequestBody Visiteur visiteur,
+//						@PathVariable("conseiller_id") int conseiller_id, UriComponentsBuilder ucBuilder) {
+//					System.out.println("Creating Client " + visiteur.getNom());
+//
+//					Client cl = clientService.createClient(visiteur, conseiller_id);
+//
+//					if (cl == null) {
+//						System.out.println("A Client with name " + visiteur.getNom() + " already exist");
+//						return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+//					} else {
+//						HttpHeaders headers = new HttpHeaders();
+//						headers.setLocation(ucBuilder.path("/client/{id}").buildAndExpand(cl.getId()).toUri());
+//						return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+//					}
+//
+//				}
 }

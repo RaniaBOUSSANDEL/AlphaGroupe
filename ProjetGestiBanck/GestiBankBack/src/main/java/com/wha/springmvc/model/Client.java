@@ -3,6 +3,7 @@ package com.wha.springmvc.model;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,12 +12,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @DiscriminatorValue("CL")
 @Table(name = "client")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Client extends User implements Serializable {
 
 	/**
@@ -29,22 +35,33 @@ public class Client extends User implements Serializable {
 	
 	
 	private String situationMaritale;
+	
+	/**documents complementaires**/
+	
+//	String justificatifDomicile;
+//	String justificatifSalaire;
+//	String pieceIdentite;
+	
+	/**fin**/
 
 	// ok
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "conseiller_id") // le nom de la colonne cree dans la base de donnee
 	private Conseiller conseiller;
 
 	//ok
 	@JsonIgnore
-	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Collection<CompteBancaire> comptesBancaire;
 	
 
 	//ok
 	@JsonIgnore
-	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-	private Collection<DemandeChequier> demandesChequier;
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	private Collection<DemandeChequier> demandesChequier;//a changer par demande
 
 	
 	public Conseiller getConseiller() {

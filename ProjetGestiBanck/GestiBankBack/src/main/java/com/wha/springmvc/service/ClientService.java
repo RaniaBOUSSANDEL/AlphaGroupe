@@ -1,8 +1,9 @@
 package com.wha.springmvc.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.CompteBancaire;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Visiteur;
 
@@ -15,7 +16,7 @@ public interface ClientService {
 	Client findById(int id);
 	Client findByName(String name);
 	Conseiller findConseillerForThisClient(int idClient);
-	List<Client> findAllClients();
+	Collection<Client> findAllClients();
 	
 	void deleteClientById(int id);
 	void deleteAllClients();
@@ -23,5 +24,7 @@ public interface ClientService {
 	Client updateConseillerForThisClient(Client client, int id_cons);
 
 	Client updateLoginMpClient(Client client, String login, String MotDePasse);
+
+	Collection<CompteBancaire> findListComptesForThisClient(int id);
 	
 }

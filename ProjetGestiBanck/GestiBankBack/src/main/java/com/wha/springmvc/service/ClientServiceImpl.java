@@ -1,6 +1,7 @@
 package com.wha.springmvc.service;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.wha.springmvc.dao.ClientDao;
 import com.wha.springmvc.dao.UserDao;
 import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.CompteBancaire;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.User;
 import com.wha.springmvc.model.Visiteur;
@@ -110,7 +112,14 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public List<Client> findAllClients() {
+	public Collection<CompteBancaire> findListComptesForThisClient(int id) {
+		Client cl = dao.findById(id);
+		
+		return cl.getComptesBancaire();
+	}
+
+	@Override
+	public Collection<Client> findAllClients() {
 		return dao.findAllClients();
 	}
 

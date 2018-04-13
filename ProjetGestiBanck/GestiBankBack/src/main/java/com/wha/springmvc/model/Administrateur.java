@@ -10,6 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -24,11 +27,13 @@ public class Administrateur extends User implements Serializable {
 
 	// ok
 	@JsonIgnore
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "administrateur", fetch = FetchType.LAZY, cascade= {CascadeType.ALL})
 	private Collection<Conseiller> conseillers;
 
 	//ok
 	@JsonIgnore
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "administrateur", fetch = FetchType.LAZY, cascade= {CascadeType.ALL})
 	private Collection<DemandeOuvertureCompte> demandesOuvertureCompte;
 
