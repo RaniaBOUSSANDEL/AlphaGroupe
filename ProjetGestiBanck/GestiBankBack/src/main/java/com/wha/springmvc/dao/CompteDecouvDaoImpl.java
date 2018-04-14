@@ -3,9 +3,12 @@ package com.wha.springmvc.dao;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.NoResultException;
+
+import org.springframework.stereotype.Repository;
+
 import com.wha.springmvc.model.CompteAvecDecouv;
 
-
+@Repository("CDDao")
 public class CompteDecouvDaoImpl extends AbstractDao<Integer, CompteAvecDecouv> implements CompteDecouvertDao {
 	// Recherche compte bancaire par id
 	@Override
@@ -22,8 +25,8 @@ public class CompteDecouvDaoImpl extends AbstractDao<Integer, CompteAvecDecouv> 
 			try {
 				CompteAvecDecouv compteDecouvert = (CompteAvecDecouv) getEntityManager()
 						.createQuery(
-								"SELECT c FROM CompteBanc c where c.dateCreation LIKE :date")
-						.setParameter("name", date).getSingleResult();
+								"SELECT c FROM CompteAvecDecouv c where c.dateCreation LIKE :date")
+						.setParameter("date", date).getSingleResult();
 				return compteDecouvert;
 			} catch (NoResultException ex) {
 				return null;
@@ -36,8 +39,8 @@ public class CompteDecouvDaoImpl extends AbstractDao<Integer, CompteAvecDecouv> 
 			try {
 				CompteAvecDecouv compteDecouvert = (CompteAvecDecouv) getEntityManager()
 						.createQuery(
-								"SELECT c FROM CompteBanc c where c.numCompte LIKE :numeroCompte")
-						.setParameter("name", numeroCompte).getSingleResult();
+								"SELECT c FROM CompteAvecDecouv c where c.numCompte LIKE :numeroCompte")
+						.setParameter("numeroCompte", numeroCompte).getSingleResult();
 				return compteDecouvert;
 			} catch (NoResultException ex) {
 				return null;

@@ -3,9 +3,12 @@ package com.wha.springmvc.dao;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.NoResultException;
+
+import org.springframework.stereotype.Repository;
+
 import com.wha.springmvc.model.Debit;
 
-
+@Repository("debitDao")
 public class DebitDaoImpl extends AbstractDao<Integer, Debit> implements DebitDao {
 
 	@Override

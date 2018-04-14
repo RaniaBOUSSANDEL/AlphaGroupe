@@ -61,7 +61,7 @@ public class CompteBancDAOImpl extends AbstractDao<Integer, CompteBancaire> impl
 	@Override
 	public List<CompteBancaire> findAllCompteBanc() {
 		List<CompteBancaire> compteBancaire = (List<CompteBancaire>) getEntityManager()
-				.createQuery("SELECT c FROM CompteBancaire c ORDER BY c.nom ASC ").getResultList();
+				.createQuery("SELECT c FROM CompteBancaire c ORDER BY c.id ASC ").getResultList();
 		return compteBancaire;
 	}
 

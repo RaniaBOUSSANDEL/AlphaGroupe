@@ -13,5 +13,6 @@ public interface CompteBancDAO {
 	void deleteCompteBancById(int id);
 	List<CompteBancaire> findAllCompteBanc();
 	void deleteAllCompteBanc();
+	
 
 }

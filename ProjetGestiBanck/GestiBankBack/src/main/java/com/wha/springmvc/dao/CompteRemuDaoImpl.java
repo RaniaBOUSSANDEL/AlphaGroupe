@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+
+import org.springframework.stereotype.Repository;
+
 import com.wha.springmvc.model.CompteRemunerateur;
 
-
+@Repository("CRDao")
 public class CompteRemuDaoImpl extends AbstractDao<Integer, CompteRemunerateur> implements CompteRemuDao {
 	// Recherche compte bancaire par id
 	@Override
@@ -22,8 +25,8 @@ public class CompteRemuDaoImpl extends AbstractDao<Integer, CompteRemunerateur> 
 			try {
 				CompteRemunerateur compteRemunerateur = (CompteRemunerateur) getEntityManager()
 						.createQuery(
-								"SELECT c FROM CompteBanc c where c.dateCreation LIKE :date")
-						.setParameter("name", date).getSingleResult();
+								"SELECT c FROM CompteRemunerateur c where c.dateCreation LIKE :date")
+						.setParameter("date", date).getSingleResult();
 				return compteRemunerateur;
 			} catch (NoResultException ex) {
 				return null;
@@ -36,8 +39,8 @@ public class CompteRemuDaoImpl extends AbstractDao<Integer, CompteRemunerateur> 
 			try {
 				CompteRemunerateur compteRemunerateur = (CompteRemunerateur) getEntityManager()
 						.createQuery(
-								"SELECT c FROM CompteBanc c where c.numCompte LIKE :numeroCompte")
-						.setParameter("name", numeroCompte).getSingleResult();
+								"SELECT c FROM CompteRemunerateur c where c.numCompte LIKE :numeroCompte")
+						.setParameter("numeroCompte", numeroCompte).getSingleResult();
 				return compteRemunerateur;
 			} catch (NoResultException ex) {
 				return null;
@@ -53,7 +56,7 @@ public class CompteRemuDaoImpl extends AbstractDao<Integer, CompteRemunerateur> 
 	@Override
 	public void deleteCompteRemuById(int id) {
 		CompteRemunerateur compteRemunerateur =getByKey(id);
-		save(compteRemunerateur);
+		delete(compteRemunerateur);
 
 	}
 	

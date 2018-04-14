@@ -2,9 +2,14 @@ package com.wha.springmvc.dao;
 
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.NoResultException;
+
+import org.springframework.stereotype.Repository;
+
 import com.wha.springmvc.model.Transaction;
 
+@Repository("transactionDao")
 public class TransactionDaoImpl extends AbstractDao<Integer, Transaction> implements TransactionDao {
 
 	@Override
@@ -36,9 +41,21 @@ public class TransactionDaoImpl extends AbstractDao<Integer, Transaction> implem
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transaction> findAllTransaction() {
-		//verif requete sql!!!!
-		List<Transaction> transactions = (List<Transaction>) getEntityManager().createQuery("SELECT t FROM Transaction t ORDER BY t.nom ASC ").getResultList();
+		//Liste des Transactions!!!!
+		List<Transaction> transactions = (List<Transaction>) getEntityManager().createQuery("SELECT t FROM Transaction t ORDER BY t.id ASC ").getResultList();
 		return transactions;
+	}
+	@Override
+	public Transaction findTransactionByNumCompt(long numeroCompte) {
+		System.out.println("name=" + numeroCompte);
+		try {
+			Transaction transaction = (Transaction) getEntityManager()
+					.createQuery("SELECT t FROM Transaction t where t.numCompte LIKE :numeroCompte")
+					.setParameter("numeroCompte", numeroCompte).getSingleResult();
+			return transaction;
+		} catch (NoResultException ex) {
+			return null;
+		}
 	}
 
 }

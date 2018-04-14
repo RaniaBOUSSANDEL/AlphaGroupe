@@ -9,6 +9,11 @@ import javax.persistence.Table;
 @Table(name="Debit")
 public class  Debit extends Transaction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5310403493883638377L;
+
 	public Debit() {
 		super();
 		

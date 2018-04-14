@@ -22,8 +22,8 @@ public class CompteCouDaoImp extends AbstractDao<Integer, CompteCourant> impleme
 			try {
 				CompteCourant compteCourant = (CompteCourant) getEntityManager()
 						.createQuery(
-								"SELECT c FROM CompteBanc c where c.dateCreation LIKE :date")
-						.setParameter("name", date).getSingleResult();
+								"SELECT c FROM CompteCourant c where c.dateCreation LIKE :date")
+						.setParameter("date", date).getSingleResult();
 				return compteCourant;
 			} catch (NoResultException ex) {
 				return null;
@@ -36,8 +36,8 @@ public class CompteCouDaoImp extends AbstractDao<Integer, CompteCourant> impleme
 			try {
 				CompteCourant compteCourant = (CompteCourant) getEntityManager()
 						.createQuery(
-								"SELECT c FROM CompteBanc c where c.numCompte LIKE :numeroCompte")
-						.setParameter("name", numeroCompte).getSingleResult();
+								"SELECT c FROM CompteCourant c where c.numCompte LIKE :numeroCompte")
+						.setParameter("numeroCompte", numeroCompte).getSingleResult();
 				return compteCourant;
 			} catch (NoResultException ex) {
 				return null;

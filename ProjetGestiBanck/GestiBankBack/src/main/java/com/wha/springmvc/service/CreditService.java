@@ -1,5 +1,7 @@
 package com.wha.springmvc.service;
 
-public interface CreditService {
+import com.wha.springmvc.model.Transaction;
 
+public interface CreditService {
+	void save(Transaction credit, long numeroCompte);
 }

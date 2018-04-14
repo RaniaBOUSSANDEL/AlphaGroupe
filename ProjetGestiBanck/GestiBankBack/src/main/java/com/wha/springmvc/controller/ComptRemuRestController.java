@@ -10,33 +10,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.wha.springmvc.model.CompteCourant;
-import com.wha.springmvc.service.ComptCouService;
+
+import com.wha.springmvc.model.CompteRemunerateur;
+import com.wha.springmvc.service.CompteRemuService;
 
 @RestController
-public class ComptCouRestController {
+public class ComptRemuRestController {
 	@Autowired
-	ComptCouService comptCouService;
+	CompteRemuService comptRemuService;
 	
-	// -------------------Create a Compte courant-------------------------------
+	// -------------------Create a Compte Decouvert-------------------------------
 
-			@RequestMapping(value = "/compteCourant/{client_id}", method = RequestMethod.POST)
-			public ResponseEntity<Void> createCompteCourant(@RequestBody CompteCourant compteCourant,
+			@RequestMapping(value = "/compteRemu/{client_id}", method = RequestMethod.POST)
+			public ResponseEntity<Void> createCompteRemunere(@RequestBody CompteRemunerateur compteRemunerateur,
 					UriComponentsBuilder ucBuilder, @PathVariable("client_id") int client_id) {
-				System.out.println("Creating compte " + compteCourant.getNumCompte());
+				System.out.println("Creating compte " + compteRemunerateur.getNumCompte());
 
-				if (comptCouService.findByNumeroCompte(compteCourant.getNumCompte())!=null) {
-		            System.out.println("A compteBanc with Numero " + compteCourant.getNumCompte() + " already exist");
+				if (comptRemuService.findByNumeroCompte(compteRemunerateur.getNumCompte())!=null) {
+		            System.out.println("A compteBanc with Numero " + compteRemunerateur.getNumCompte() + " already exist");
 		            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		        }
 //				CompteCourant c = new CompteCourant();
 //				CompteBancaire cc = (CompteBancaire)c;
 
 				
-				comptCouService.save(compteCourant, client_id);
+				comptRemuService.save(compteRemunerateur, client_id);
 		 
 		        HttpHeaders headers = new HttpHeaders();
-		        headers.setLocation(ucBuilder.path("/compteCourant/{num}").buildAndExpand(compteCourant.getNumCompte()).toUri());
+		        headers.setLocation(ucBuilder.path("/compteRemu/{num}").buildAndExpand(compteRemunerateur.getNumCompte()).toUri());
 		        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 			}
 }

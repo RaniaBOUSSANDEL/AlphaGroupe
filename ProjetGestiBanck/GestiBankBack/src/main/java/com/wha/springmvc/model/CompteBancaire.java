@@ -2,7 +2,7 @@ package com.wha.springmvc.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
@@ -21,16 +21,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "typeCompte")
 @DiscriminatorValue("CB")
 @Table(name = "CompteBancaire")
-//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class CompteBancaire implements Serializable {
 	/**
 	 * 
@@ -41,10 +38,9 @@ public class CompteBancaire implements Serializable {
 	private int id;
 	private long numCompte;
 	private Date dateCreation;
-	private int solde;
+	private float solde;
 	
 	//ok
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "client_id") // le nom de la colonne cree dans la base de donnee
 	private Client client;
@@ -53,14 +49,14 @@ public class CompteBancaire implements Serializable {
 	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "compteB", fetch = FetchType.LAZY, cascade= {CascadeType.ALL})
-	private Collection<Transaction> transactions;
+	private List<Transaction> transactions;
 
 
 	public CompteBancaire() {
 		id = 0;
 	}
 
-	public CompteBancaire(int id, long numCompte, Date dateCreation, int solde) {
+	public CompteBancaire(int id, long numCompte, Date dateCreation, float solde) {
 
 		this.id = id;
 		this.numCompte = numCompte;
@@ -78,11 +74,11 @@ public class CompteBancaire implements Serializable {
 
 	
 
-	public Collection<Transaction> getTransactions() {
+	public List<Transaction> getTransactions() {
 		return transactions;
 	}
 
-	public void setTransactions(Collection<Transaction> transactions) {
+	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
 	}
 
@@ -110,11 +106,11 @@ public class CompteBancaire implements Serializable {
 		this.dateCreation = dateCreation;
 	}
 
-	public int getSolde() {
+	public float getSolde() {
 		return solde;
 	}
 
-	public void setSolde(int solde) {
+	public void setSolde(float solde) {
 		this.solde = solde;
 	}
 

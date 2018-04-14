@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -30,10 +33,12 @@ public class Transaction implements Serializable {
 	private long montant;
 	private Date dateDeffet;
 	private String libelle;
-	private double solde;
+	private long ribDest;
+	
 
 	// ok
 	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name = "compteB_id") // le nom de la colonne cree dans la base de donnee
 	private CompteBancaire compteB;
@@ -42,13 +47,24 @@ public class Transaction implements Serializable {
 		id = 0;
 	}
 
-	public Transaction(int id, long montant, Date dateDeffet, String libelle, double solde) {
+	public Transaction(int id, long montant, Date dateDeffet, String libelle,long ribDest) {
 		super();
 		this.id = id;
 		this.montant = montant;
 		this.dateDeffet = dateDeffet;
 		this.libelle = libelle;
-		this.solde = solde;
+		this.ribDest = ribDest;
+		
+	}
+	
+	
+
+	public long getRibDest() {
+		return ribDest;
+	}
+
+	public void setRibDest(long ribDest) {
+		this.ribDest = ribDest;
 	}
 
 	public CompteBancaire getCompteB() {
@@ -59,13 +75,6 @@ public class Transaction implements Serializable {
 		this.compteB = compteB;
 	}
 
-	public double getSolde() {
-		return solde;
-	}
-
-	public void setSolde(double solde) {
-		this.solde = solde;
-	}
 
 	public int getId() {
 		return id;
@@ -102,7 +111,9 @@ public class Transaction implements Serializable {
 	@Override
 	public String toString() {
 		return "Transaction [id=" + id + ", montant=" + montant + ", dateDeffet=" + dateDeffet + ", libelle=" + libelle
-				+ ", solde=" + solde + "]";
+				+ ", ribDest=" + ribDest + ", compteB=" + compteB + "]";
 	}
+
+	
 
 }
