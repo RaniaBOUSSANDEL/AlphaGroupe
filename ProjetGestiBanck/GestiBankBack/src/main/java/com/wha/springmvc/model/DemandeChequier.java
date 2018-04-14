@@ -35,8 +35,8 @@ public class DemandeChequier extends Demande implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DemandeChequier(int idDemande, Date dateDemande, String etatDemande) {
-		super(idDemande, dateDemande, etatDemande);
+	public DemandeChequier(Date dateDemande, String etatDemande) {
+		super(dateDemande, etatDemande);
 		// TODO Auto-generated constructor stub
 	}
 

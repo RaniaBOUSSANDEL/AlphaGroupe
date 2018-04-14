@@ -20,7 +20,7 @@ public class DemandeOuvertureCompte extends Demande implements Serializable {
 	private static final long serialVersionUID = -853669645625977250L;
 	/*l'id du client on la recupere automatiquement*/	
 	/*int idClient;*/
-	private String etatAffectation;
+	private boolean etatAffectation;
 	private Date dateAffectation;
 	
 	//ok
@@ -39,8 +39,8 @@ public class DemandeOuvertureCompte extends Demande implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DemandeOuvertureCompte(int idDemande, Date dateDemande, String etatDemande, String etatAffectation, Date dateAffectation) {
-		super(idDemande, dateDemande, etatDemande);
+	public DemandeOuvertureCompte(Date dateDemande, String etatDemande, boolean etatAffectation, Date dateAffectation) {
+		super(dateDemande, etatDemande);
 		this.etatAffectation = etatAffectation;
 		this.dateAffectation = dateAffectation;
 	}
@@ -57,10 +57,10 @@ public class DemandeOuvertureCompte extends Demande implements Serializable {
 	public void setConseiller(Conseiller conseiller) {
 		this.conseiller = conseiller;
 	}
-	public String getEtatAffectation() {
+	public boolean getEtatAffectation() {
 		return etatAffectation;
 	}
-	public void setEtatAffectation(String etatAffectation) {
+	public void setEtatAffectation(boolean etatAffectation) {
 		this.etatAffectation = etatAffectation;
 	}
 	public Date getDateAffectation() {
@@ -85,27 +85,27 @@ public class DemandeOuvertureCompte extends Demande implements Serializable {
 //		return result;
 //	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DemandeOuvertureCompte other = (DemandeOuvertureCompte) obj;
-		if (dateAffectation == null) {
-			if (other.dateAffectation != null)
-				return false;
-		} else if (!dateAffectation.equals(other.dateAffectation))
-			return false;
-		if (etatAffectation == null) {
-			if (other.etatAffectation != null)
-				return false;
-		} else if (!etatAffectation.equals(other.etatAffectation))
-			return false;
-		return true;
-	}
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (!super.equals(obj))
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		DemandeOuvertureCompte other = (DemandeOuvertureCompte) obj;
+//		if (dateAffectation == null) {
+//			if (other.dateAffectation != null)
+//				return false;
+//		} else if (!dateAffectation.equals(other.dateAffectation))
+//			return false;
+//		if (etatAffectation == null) {
+//			if (other.etatAffectation != null)
+//				return false;
+//		} else if (!etatAffectation.equals(other.etatAffectation))
+//			return false;
+//		return true;
+//	}
 	
 	/*public int getIdClient() {
 		return idClient;

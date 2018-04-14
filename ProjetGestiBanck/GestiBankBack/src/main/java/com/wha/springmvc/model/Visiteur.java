@@ -112,6 +112,7 @@ public class Visiteur implements Serializable {
 	public void setSituationMaritale(String situationMaritale) {
 		this.situationMaritale = situationMaritale;
 	}
+	
 
 //	@Override
 //	public int hashCode() {
@@ -178,8 +179,10 @@ public class Visiteur implements Serializable {
 	public String toString() {
 		return "Visiteur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", email="
 				+ email + ", numTel=" + numTel + ", nbEnfants=" + nbEnfants + ", situationMaritale=" + situationMaritale
-				+ "]";
+				+ ", demandeOuvertureCompte=" + demandeOuvertureCompte + "]";
 	}
+
+	
 
 	
 	

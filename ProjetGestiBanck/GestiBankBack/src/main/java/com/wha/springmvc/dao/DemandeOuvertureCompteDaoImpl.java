@@ -4,8 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-import com.wha.springmvc.model.DemandeOuvertureCompte;
 
+import org.springframework.stereotype.Repository;
+
+import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.DemandeOuvertureCompte;
+@Repository("demandeOCDao")
 public class DemandeOuvertureCompteDaoImpl extends AbstractDao<Integer, DemandeOuvertureCompte> implements DemandeOuvertureCompteDao {
 
 	@SuppressWarnings("unchecked")
@@ -36,6 +40,38 @@ public class DemandeOuvertureCompteDaoImpl extends AbstractDao<Integer, DemandeO
 		} catch (NoResultException ex) {
 			return null;
 		}
+	}
+
+	@Override
+	public DemandeOuvertureCompte findById(int id) {
+		DemandeOuvertureCompte demandeDOC = getByKey(id);
+		return demandeDOC;
+	}
+	
+	@Override
+	public List<DemandeOuvertureCompte> findByDateDemande(Date date) {
+		
+		return null;
+	}
+
+	@Override
+	public List<DemandeOuvertureCompte> findByEtatDemande(String etatDemande) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(DemandeOuvertureCompte demande) {
+		persist(demande);
+		
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DemandeOuvertureCompte> findAllDemandeDemandeOuvertureCompte() {
+		List<DemandeOuvertureCompte> demandesComptes = (List<DemandeOuvertureCompte>) getEntityManager()
+				.createQuery("SELECT dc FROM DemandeOuvertureCompte dc ORDER BY dc.dateDemande ASC ").getResultList();
+
+		return demandesComptes;
 	}
 
 }

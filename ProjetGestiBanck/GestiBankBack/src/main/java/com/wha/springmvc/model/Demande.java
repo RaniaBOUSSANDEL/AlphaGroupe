@@ -37,7 +37,7 @@ public class Demande implements Serializable {
 		etatDemande = "";
 	}
 
-	public Demande(int idDemande, Date dateDemande, String etatDemande) {
+	public Demande(Date dateDemande, String etatDemande) {
 		super();
 		this.idDemande = idDemande;
 		this.dateDemande = dateDemande;
