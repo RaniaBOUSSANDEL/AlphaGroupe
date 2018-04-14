@@ -54,7 +54,8 @@ public class ComptBancServicImpl implements ComptBancService {
 	@Override
 	public List<CompteBancaire> findAllCompteBancByIdCl(int idCl) {
 		
-		return null;
+		Client client = daoC.findById(idCl);
+			return   client.getComptesBancaire();
 	}
 
 }
